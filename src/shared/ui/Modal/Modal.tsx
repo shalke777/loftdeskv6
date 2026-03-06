@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useRef } from 'react'
+import { ReactNode, useCallback, useEffect, useRef } from 'react'
 import clsx from 'clsx'
 
 interface Props {
@@ -14,6 +14,16 @@ const FOCUSABLE = 'button, [href], input, select, textarea, [tabindex]:not([tabi
 
 export function Modal({ title, open, onClose, children, size = 'lg', className }: Props) {
   const panelRef = useRef<HTMLDivElement>(null)
+  const onCloseRef = useRef(onClose)
+
+  // Keep onClose ref up to date
+  useEffect(() => {
+    onCloseRef.current = onClose
+  }, [onClose])
+
+  const handleClose = useCallback(() => {
+    onCloseRef.current()
+  }, [])
 
   useEffect(() => {
     if (!open) return
@@ -25,22 +35,34 @@ export function Modal({ title, open, onClose, children, size = 'lg', className }
     }
 
     function handleKey(e: KeyboardEvent) {
-      if (e.key === 'Escape') { onClose(); return }
+      if (e.key === 'Escape') {
+        handleClose()
+        return
+      }
       if (e.key !== 'Tab' || !el) return
       const nodes = el.querySelectorAll<HTMLElement>(FOCUSABLE)
       if (!nodes.length) return
       const first = nodes[0]
       const last = nodes[nodes.length - 1]
-      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus() }
-      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus() }
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault()
+        last.focus()
+      }
+      else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault()
+        first.focus()
+      }
     }
 
     document.addEventListener('keydown', handleKey)
     return () => {
       document.removeEventListener('keydown', handleKey)
-      prev?.focus()
+      // Only restore focus if element still exists in DOM
+      if (prev && document.body.contains(prev)) {
+        prev.focus()
+      }
     }
-  }, [open, onClose])
+  }, [open, handleClose])
 
   if (!open) return null
   return (

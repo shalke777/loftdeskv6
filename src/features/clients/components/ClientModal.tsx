@@ -20,6 +20,9 @@ export function ClientModal({ open, onClose, initialClient }: { open: boolean; o
   const [contactPerson, setContactPerson] = useState('')
 
   useEffect(() => {
+    // Only reset form when modal opens with new data
+    // Removed 'open' from dependencies to prevent form reset during editing
+    if (!open) return
     setName(initialClient?.name || '')
     setEmail(initialClient?.email || '')
     setPhone(initialClient?.phone || '')
@@ -28,7 +31,7 @@ export function ClientModal({ open, onClose, initialClient }: { open: boolean; o
     setPostalCode(initialClient?.postal_code || '')
     setNip(initialClient?.nip || '')
     setContactPerson(initialClient?.contact_person || '')
-  }, [initialClient, open])
+  }, [initialClient])
 
   async function save() {
     const payload = { company_id: companyId, name, email, phone, city, address, postal_code: postalCode, nip, contact_person: contactPerson }

@@ -46,15 +46,25 @@ export function PortalLinksCard({ estimate }: { estimate: Estimate }) {
           disabled={estimate.status === 'draft' || !user}
           loading={createToken.isPending}
           onClick={async () => {
-            const created = await createToken.mutateAsync({
-              estimateId: estimate.id,
-              userId: user?.id ?? '',
-              clientName: clientName || 'Klient',
-            })
-            const fullUrl = typeof window !== 'undefined' ? `${window.location.origin}${created.url}` : created.url
-            await navigator.clipboard?.writeText(fullUrl)
-            toast.success('Link gotowy', 'Adres portalu został skopiowany do schowka.')
-            setClientName('')
+            try {
+              const created = await createToken.mutateAsync({
+                estimateId: estimate.id,
+                userId: user?.id ?? '',
+                clientName: clientName || 'Klient',
+              })
+              const fullUrl = typeof window !== 'undefined' ? `${window.location.origin}${created.url}` : created.url
+
+              try {
+                await navigator.clipboard?.writeText(fullUrl)
+                toast.success('Link gotowy', 'Adres portalu został skopiowany do schowka.')
+              } catch {
+                toast.success('Link gotowy', fullUrl)
+              }
+
+              setClientName('')
+            } catch (error) {
+              toast.error('Nie udało się wygenerować linku', error instanceof Error ? error.message : undefined)
+            }
           }}
         >
           Wygeneruj i skopiuj link
@@ -77,7 +87,14 @@ export function PortalLinksCard({ estimate }: { estimate: Estimate }) {
               <div style={{ display: 'grid', gap: 6 }}>
                 <code style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}>{fullUrl}</code>
                 <div className="actions-row">
-                  <Button variant="secondary" onClick={async () => { await navigator.clipboard?.writeText(fullUrl); toast.info('Skopiowano link portalu') }}>Kopiuj link</Button>
+                  <Button variant="secondary" onClick={async () => {
+                    try {
+                      await navigator.clipboard?.writeText(fullUrl)
+                      toast.info('Skopiowano link portalu')
+                    } catch {
+                      toast.info('Link portalu', fullUrl)
+                    }
+                  }}>Kopiuj link</Button>
                   <a href={fullUrl} target="_blank" rel="noreferrer"><Button variant="secondary" icon={<ExternalLink size={16} />}>Otwórz link</Button></a>
                   {item.active ? (
                     <Button variant="ghost" loading={deactivateToken.isPending && deactivateToken.variables === item.id} onClick={() => deactivateToken.mutate(item.id)}>

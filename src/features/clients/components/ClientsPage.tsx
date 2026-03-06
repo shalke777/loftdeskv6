@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Plus, Phone, MapPin } from 'lucide-react'
 import { Button } from '@/shared/ui/Button/Button'
 import { Spinner } from '@/shared/ui/Spinner/Spinner'
@@ -6,11 +5,11 @@ import { EmptyState } from '@/shared/ui/EmptyState/EmptyState'
 import { useClients, useDeleteClient } from '@/features/clients/hooks/useClients'
 import { ClientModal } from '@/features/clients/components/ClientModal'
 import { useCan } from '@/features/auth/hooks/usePermissions'
+import { useModalState } from '@/shared/hooks/useModalState'
 import type { Client } from '@/entities/client/model'
 
 export function ClientsPage() {
-  const [open, setOpen] = useState(false)
-  const [selected, setSelected] = useState<Client | null>(null)
+  const modal = useModalState<Client>()
   const { data, isLoading } = useClients()
   const deleteClient = useDeleteClient()
   const canCreate = useCan('clients.create')
@@ -34,14 +33,14 @@ export function ClientsPage() {
               {(client.city || client.address) ? <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}><MapPin size={14} />{`${client.postal_code || ''} ${client.city || ''}, ${client.address || ''}`.trim()}</span> : null}
             </p>
             <div className="ecard__actions">
-              <Button size="sm" variant="ghost" onClick={() => { setSelected(client); setOpen(true) }}>Edytuj</Button>
+              <Button size="sm" variant="ghost" onClick={() => modal.openEdit(client)}>Edytuj</Button>
               {canDelete ? <Button size="sm" variant="danger" onClick={() => deleteClient.mutate(client.id)}>Usuń</Button> : null}
             </div>
           </div>
         ))}
       </div>
-      {canCreate ? <button className="fab" onClick={() => { setSelected(null); setOpen(true) }} aria-label="Dodaj kontrahenta"><Plus size={22} /></button> : null}
-      {canCreate ? <ClientModal open={open} onClose={() => setOpen(false)} initialClient={selected} /> : null}
+      {canCreate ? <button className="fab" onClick={modal.openCreate} aria-label="Dodaj kontrahenta"><Plus size={22} /></button> : null}
+      {canCreate ? <ClientModal open={modal.open} onClose={modal.close} initialClient={modal.editing} /> : null}
     </div>
   )
 }

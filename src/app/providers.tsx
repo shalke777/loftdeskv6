@@ -1,5 +1,5 @@
 import { QueryClientProvider } from '@tanstack/react-query'
-import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react'
+import { ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { queryClient } from '@/shared/lib/queryClient'
 import { ToastViewport } from '@/shared/ui/Toast/Toast'
 import { useLocalStorage } from '@/shared/hooks/useLocalStorage'
@@ -70,6 +70,8 @@ function AuthProvider({ children }: { children: ReactNode }) {
       void refreshSession()
     })
     return () => subscription?.data.subscription.unsubscribe()
+    // Only run on mount - refreshSession and storedUser are not needed as dependencies
+    // refreshSession is stable and storedUser is only used for initial state
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -109,11 +111,33 @@ function AuthProvider({ children }: { children: ReactNode }) {
 
 function ToastProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<ToastItem[]>([])
-  const remove = useCallback((id: string) => setItems((prev) => prev.filter((item) => item.id !== id)), [])
+  const timeoutsRef = useRef<Map<string, number>>(new Map())
+
+  const remove = useCallback((id: string) => {
+    setItems((prev) => prev.filter((item) => item.id !== id))
+    const timeout = timeoutsRef.current.get(id)
+    if (timeout) {
+      window.clearTimeout(timeout)
+      timeoutsRef.current.delete(id)
+    }
+  }, [])
+
   const push = useCallback((variant: ToastItem['variant'], title: string, description?: string) => {
     const id = crypto.randomUUID()
     setItems((prev) => [...prev, { id, title, description, variant }])
-    window.setTimeout(() => setItems((prev) => prev.filter((item) => item.id !== id)), 3200)
+    const timeout = window.setTimeout(() => {
+      setItems((prev) => prev.filter((item) => item.id !== id))
+      timeoutsRef.current.delete(id)
+    }, 3200)
+    timeoutsRef.current.set(id, timeout)
+  }, [])
+
+  // Cleanup timeouts on unmount
+  useEffect(() => {
+    return () => {
+      timeoutsRef.current.forEach((timeout) => window.clearTimeout(timeout))
+      timeoutsRef.current.clear()
+    }
   }, [])
 
   const value = useMemo<ToastContextValue>(

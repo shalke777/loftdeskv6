@@ -74,14 +74,19 @@ export function EstimateForm({ onSubmit, companyId, initialEstimate }: Props) {
   }
 
   async function saveAndSend() {
-    await save('sent')
-    const clientEmail = selectedClient?.email || undefined
-    const itemLines = items.map((it) => `• ${it.name} — ${(it.quantity * it.unit_price).toFixed(2)} zł netto`).join('\n')
-    await shareDoc({
-      title: `Wycena: ${name || 'Kosztorys'}`,
-      text: `Dzień dobry,\n\nPrzesyłam wycenę:\n${itemLines}\n\nRazem netto: ${totals.net.toFixed(2)} zł\nRazem brutto: ${totals.gross.toFixed(2)} zł\n\nW razie pytań — proszę o kontakt.`,
-      email: clientEmail,
-    })
+    try {
+      await save('sent')
+      const clientEmail = selectedClient?.email || undefined
+      const itemLines = items.map((it) => `• ${it.name} — ${(it.quantity * it.unit_price).toFixed(2)} zł netto`).join('\n')
+      await shareDoc({
+        title: `Wycena: ${name || 'Kosztorys'}`,
+        text: `Dzień dobry,\n\nPrzesyłam wycenę:\n${itemLines}\n\nRazem netto: ${totals.net.toFixed(2)} zł\nRazem brutto: ${totals.gross.toFixed(2)} zł\n\nW razie pytań — proszę o kontakt.`,
+        email: clientEmail,
+      })
+    } catch (error) {
+      // Error already handled by save() or shareDoc()
+      console.error('Failed to save and send:', error)
+    }
   }
 
   return (
