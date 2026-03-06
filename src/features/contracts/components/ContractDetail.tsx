@@ -17,11 +17,22 @@ export function ContractDetail({ contract, onSign, onEdit, canSign = true }: { c
   const { data: projects = [] } = useProjects()
   const { data: estimates = [] } = useEstimates()
   const { user } = useAuth()
+
+  const client = contract ? clients.find((item) => item.id === contract.client_id) : null
+  const project = contract ? projects.find((item) => item.id === contract.project_id) : null
+  const estimate = contract ? estimates.find((item) => item.id === contract.estimate_id) : null
+
+  const tabs = useMemo(() => {
+    if (!contract) return []
+    return [{
+      key: 'pdf',
+      label: 'Podgląd PDF',
+      type: 'html' as const,
+      content: buildContractPreview(contract, client?.name, project?.name, { name: user?.companyName, email: user?.email })
+    }]
+  }, [contract, client?.name, project?.name, user?.companyName, user?.email])
+
   if (!contract) return null
-  const client = clients.find((item) => item.id === contract.client_id)
-  const project = projects.find((item) => item.id === contract.project_id)
-  const estimate = estimates.find((item) => item.id === contract.estimate_id)
-  const tabs = useMemo(() => [{ key: 'pdf', label: 'Podgląd PDF', type: 'html' as const, content: buildContractPreview(contract, client?.name, project?.name, { name: user?.companyName, email: user?.email }) }], [client?.name, contract, project?.name, user?.companyName, user?.email])
   return (
     <>
       <Card>
