@@ -31,6 +31,22 @@ npm install
 npm run dev
 ```
 
+## 📥 Jak pobrać najnowsze poprawki z GitHub?
+
+Jeśli wprowadziłem poprawki, a nie masz ich jeszcze na swoim dysku:
+
+```bash
+# Jeśli masz już projekt lokalnie - pobierz najnowsze zmiany:
+git pull origin main
+
+# Jeśli pobierasz projekt po raz pierwszy:
+git clone https://github.com/shalke777/loftdeskv6.git
+cd loftdeskv6
+npm install
+```
+
+**Szczegółowa instrukcja**: Zobacz [docs/jak-pobrac-z-github.md](docs/jak-pobrac-z-github.md) - pełny przewodnik z różnymi scenariuszami i rozwiązywaniem problemów.
+
 ## Konta demo
 - `adam@budowlanka.pl` / `demo123`
 - `koordynator@budowlanka.pl` / `demo123`
