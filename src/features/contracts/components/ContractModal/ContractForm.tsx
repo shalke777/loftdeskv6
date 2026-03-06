@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Plus, Trash2 } from 'lucide-react'
 import { Input } from '@/shared/ui/Input/Input'
 import { Button } from '@/shared/ui/Button/Button'
@@ -67,7 +67,7 @@ export function ContractForm({ companyId, onSubmit, initialContract }: Props) {
     const v = String(initialContract?.value ?? 30000)
     setValue(v)
     setNotes(initialContract?.notes || '')
-    setReserved((initialContract as any)?.reserved_notes || '')
+    setReserved(initialContract?.reserved_notes || '')
     setSignDate(initialContract?.sign_date || new Date().toISOString().slice(0, 10))
     setClientId(initialContract?.client_id || '')
     setProjectId(initialContract?.project_id || '')
@@ -81,7 +81,7 @@ export function ContractForm({ companyId, onSubmit, initialContract }: Props) {
     )
   }, [initialContract])
 
-  function applyEstimate(nextId: string) {
+  const applyEstimate = useCallback((nextId: string) => {
     setEstimateId(nextId)
     const est = estimates.find((e) => e.id === nextId)
     if (!est) return
@@ -94,32 +94,32 @@ export function ContractForm({ companyId, onSubmit, initialContract }: Props) {
       (p) => p.estimate_id === est.id || (p.client_id === est.client_id && p.name === est.name),
     )
     if (mp) setProjectId(mp.id)
-  }
+  }, [estimates, notes, projects, templateName])
 
-  function applyTemplate(tmpl: string) {
+  const applyTemplate = useCallback((tmpl: string) => {
     setTemplateName(tmpl)
     setTranches(makeDefaultTranches(totalValue, tmpl))
-  }
+  }, [totalValue])
 
-  function patchTranche(id: string, key: keyof ContractTranche, val: string) {
+  const patchTranche = useCallback((id: string, key: keyof ContractTranche, val: string) => {
     setTranches((prev) =>
       prev.map((t) =>
         t.id === id ? { ...t, [key]: key === 'amount' ? Number(val) : val } : t,
       ),
     )
-  }
+  }, [])
 
-  function addTranche() {
+  const addTranche = useCallback(() => {
     const remaining = Math.max(0, totalValue - tranchesTotal)
     setTranches((prev) => [
       ...prev,
       { id: crypto.randomUUID(), label: `Transza ${prev.length + 1}`, amount: remaining, due_date: '', status: 'planned' },
     ])
-  }
+  }, [totalValue, tranchesTotal])
 
-  function removeTranche(id: string) {
+  const removeTranche = useCallback((id: string) => {
     setTranches((prev) => prev.filter((t) => t.id !== id))
-  }
+  }, [])
 
   return (
     <div style={{ display: 'grid', gap: 16 }}>

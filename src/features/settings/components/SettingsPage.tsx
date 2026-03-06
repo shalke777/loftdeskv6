@@ -132,9 +132,9 @@ export function SettingsPage() {
       {/* ── 4. KSeF ── */}
       <SectionTitle accent="ksef">KSeF</SectionTitle>
       <Card>
-        <InfoRow label="Środowisko" value={(profile as any)?.ksef_env ?? 'test'} />
-        <InfoRow label="NIP" value={(profile as any)?.ksef_nip ?? 'brak'} />
-        <InfoRow label="Token" value={(profile as any)?.ksef_token ? '✓ ustawiony' : '✗ brak'} />
+        <InfoRow label="Środowisko" value={profile?.ksef_env ?? 'test'} />
+        <InfoRow label="NIP" value={profile?.ksef_nip ?? 'brak'} />
+        <InfoRow label="Token" value={profile?.ksef_token ? '✓ ustawiony' : '✗ brak'} />
         <InfoRow label="Status" value={canUseKsef ? 'Aktywny' : 'Zablokowany (plan Free)'} />
         <div className="actions-row" style={{ marginTop: 12 }}>
           <Button variant="secondary" onClick={() => window.location.assign('/ksef')}>Przejdź do KSeF</Button>

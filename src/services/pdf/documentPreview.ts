@@ -9,7 +9,7 @@ type Party = {
   address?: string
   postalCity?: string
   nip?: string
-  email?: string
+  email?: string | null
   phone?: string
 }
 
