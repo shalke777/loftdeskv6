@@ -17,10 +17,12 @@ export function CompanyProfileCard() {
 
   useEffect(() => {
     if (!profile) return
-    setCompanyName((profile as any).company_name || (profile as any).company || '')
-    setKsefEnv(((profile as any).ksef_env || 'test') as 'test' | 'prod')
-    setKsefNip((profile as any).ksef_nip || '')
-    setKsefToken((profile as any).ksef_token || '')
+    // Profile can be from companies table (company_name) or profiles table (company)
+    const name = 'company_name' in profile ? profile.company_name : ('company' in profile ? profile.company : '')
+    setCompanyName(name || '')
+    setKsefEnv((profile.ksef_env || 'test') as 'test' | 'prod')
+    setKsefNip(profile.ksef_nip || '')
+    setKsefToken(profile.ksef_token || '')
   }, [profile])
 
   return (

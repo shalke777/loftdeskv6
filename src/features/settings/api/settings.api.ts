@@ -2,9 +2,10 @@ import type { DemoRole } from '@/shared/lib/demoDb'
 import { demoDb } from '@/shared/lib/demoDb'
 import { isDemoMode, supabase } from '@/shared/lib/supabase'
 import { getDataScope } from '@/shared/lib/dataScope'
+import type { CompanyProfile } from '@/entities/company/model'
 
 export const settingsApi = {
-  async profile(companyId: string) {
+  async profile(companyId: string): Promise<CompanyProfile | null> {
     if (isDemoMode || !supabase) return Promise.resolve(demoDb.companyProfile(companyId))
     const scope = await getDataScope(companyId)
     if (scope.mode === 'multi-tenant') {

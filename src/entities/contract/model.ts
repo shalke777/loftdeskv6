@@ -19,6 +19,7 @@ export const ContractSchema = z.object({
   sign_date: z.string().nullable(),
   value: z.number().nonnegative(),
   notes: z.string().optional(),
+  reserved_notes: z.string().optional(),
   template_name: z.string().optional(),
   template_content: z.string().optional(),
   created_at: z.string(),

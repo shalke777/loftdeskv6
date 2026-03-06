@@ -75,7 +75,7 @@ export function EstimateForm({ onSubmit, companyId, initialEstimate }: Props) {
 
   async function saveAndSend() {
     await save('sent')
-    const clientEmail = (selectedClient as any)?.email as string | undefined
+    const clientEmail = selectedClient?.email || undefined
     const itemLines = items.map((it) => `• ${it.name} — ${(it.quantity * it.unit_price).toFixed(2)} zł netto`).join('\n')
     await shareDoc({
       title: `Wycena: ${name || 'Kosztorys'}`,

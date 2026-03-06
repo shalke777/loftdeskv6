@@ -18,7 +18,7 @@ export function WorkspaceReadinessCard() {
   const checks = buildWorkspaceReadiness({
     companyName: user.companyName,
     plan: user.plan,
-    ksefReady: Boolean((profile as any)?.ksef_token),
+    ksefReady: Boolean(profile?.ksef_token),
     membersCount: team.length,
     pendingInvitations: invitations.filter((item: any) => item.status === 'pending').length,
     portalLinks,

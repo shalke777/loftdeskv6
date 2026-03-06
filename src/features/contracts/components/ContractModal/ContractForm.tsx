@@ -67,7 +67,7 @@ export function ContractForm({ companyId, onSubmit, initialContract }: Props) {
     const v = String(initialContract?.value ?? 30000)
     setValue(v)
     setNotes(initialContract?.notes || '')
-    setReserved((initialContract as any)?.reserved_notes || '')
+    setReserved(initialContract?.reserved_notes || '')
     setSignDate(initialContract?.sign_date || new Date().toISOString().slice(0, 10))
     setClientId(initialContract?.client_id || '')
     setProjectId(initialContract?.project_id || '')

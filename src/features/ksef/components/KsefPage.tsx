@@ -179,19 +179,19 @@ export function KsefPage() {
           <div>
             <h3 style={{ margin: 0 }}>Konfiguracja</h3>
             <p style={{ margin: '4px 0 0', fontSize: 13, color: 'var(--color-text-secondary)' }}>
-              Środowisko: {(profile as any)?.ksef_env ?? 'test'} · NIP: {(profile as any)?.ksef_nip || 'brak'}
+              Środowisko: {profile?.ksef_env ?? 'test'} · NIP: {profile?.ksef_nip || 'brak'}
             </p>
           </div>
-          <Badge variant={(profile as any)?.ksef_token ? 'success' : 'warning'}>
-            {(profile as any)?.ksef_token ? 'Token aktywny' : 'Brak tokena'}
+          <Badge variant={profile?.ksef_token ? 'success' : 'warning'}>
+            {profile?.ksef_token ? 'Token aktywny' : 'Brak tokena'}
           </Badge>
         </div>
-        {!(profile as any)?.ksef_token && (
+        {!profile?.ksef_token && (
           <p style={{ margin: '8px 0 0', fontSize: 13 }}>Uzupełnij token KSeF w ustawieniach firmy, aby korzystać z modułu.</p>
         )}
         <div className="actions-row">
-          <Button size="sm" disabled={!(profile as any)?.ksef_token}>Otwórz sesję KSeF</Button>
-          <Button size="sm" variant="secondary" disabled={!(profile as any)?.ksef_token}>Wyślij fakturę testową</Button>
+          <Button size="sm" disabled={!profile?.ksef_token}>Otwórz sesję KSeF</Button>
+          <Button size="sm" variant="secondary" disabled={!profile?.ksef_token}>Wyślij fakturę testową</Button>
         </div>
       </Card>
 
