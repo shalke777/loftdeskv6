@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LoftDesk — dokumenty budowlane w 30 sekund</title>
+  <meta name="description" content="Kosztorysy, faktury, umowy i KSeF dla fachowców. Jedno kliknięcie, gotowy PDF.">
+  <meta name="theme-color" content="#dc2626">
+  <link rel="stylesheet" href="/landing/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- NAV — cieniutki, przezroczysty -->
+<nav class="nav" id="nav">
+  <div class="nav__inner">
+    <a href="/" class="nav__logo">LoftDesk</a>
+    <div class="nav__links" id="navLinks">
+      <a href="#jak-dziala">Jak działa</a>
+      <a href="#funkcje">Funkcje</a>
+      <a href="#cennik">Cennik</a>
+    </div>
+    <div class="nav__right" id="navRight">
+      <a href="/login" class="nav__login">Zaloguj się</a>
+      <a href="/login" class="nav__btn">Wypróbuj za darmo</a>
+    </div>
+    <button class="nav__burger" id="burger" aria-label="Menu">
+      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- ════════════════════════════════════════════════
+     SLIDE 1 — HERO
+     ════════════════════════════════════════════════ -->
+<section class="slide slide--hero">
+  <div class="slide__inner">
+    <p class="kicker anim">Aplikacja dla fachowców</p>
+    <h1 class="anim">Wyceniasz na miejscu.<br>Reszta robi się sama.</h1>
+    <p class="subtitle anim">Kosztorys, faktura, umowa — gotowy PDF w&nbsp;30&nbsp;sekund.</p>
+    <a href="/login" class="pill anim">Zacznij za darmo</a>
+  </div>
+  <!-- phone mockup -->
+  <div class="slide__device anim">
+    <div class="device">
+      <div class="device__notch"></div>
+      <div class="device__screen">
+        <div class="ui-header"><span class="ui-dot"></span> Nowy kosztorys</div>
+        <div class="ui-row"><span>Łazienka — glazura</span><b>4 200 zł</b></div>
+        <div class="ui-row"><span>Kuchnia — hydraulika</span><b>2 800 zł</b></div>
+        <div class="ui-row"><span>Korytarz — elektryka</span><b>1 600 zł</b></div>
+        <div class="ui-sep"></div>
+        <div class="ui-row ui-row--bold"><span>Razem netto</span><b>8 600 zł</b></div>
+        <div class="ui-btn">Generuj PDF</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════
+     SLIDE 2 — PDF
+     ════════════════════════════════════════════════ -->
+<section class="slide slide--pdf" id="jak-dziala">
+  <div class="slide__inner">
+    <p class="kicker anim">Dokumenty</p>
+    <h2 class="anim">Profesjonalny PDF<br>jednym kliknięciem</h2>
+    <p class="subtitle anim">Faktura, kosztorys, umowa — z Twoim logo, pieczątką i&nbsp;numeracją. Wysyłasz klientowi w&nbsp;10&nbsp;sekund.</p>
+  </div>
+  <div class="slide__mockup anim">
+    <div class="pdf-mock">
+      <div class="pdf-mock__bar">
+        <span class="pdf-mock__dot" style="background:#dc2626"></span>
+        <span class="pdf-mock__dot" style="background:#f97316"></span>
+        <span class="pdf-mock__dot" style="background:#16a34a"></span>
+      </div>
+      <div class="pdf-mock__body">
+        <div class="pdf-mock__logo"></div>
+        <div class="pdf-mock__title">Kosztorys KS-2024/0047</div>
+        <div class="pdf-mock__line" style="width:90%"></div>
+        <div class="pdf-mock__line" style="width:75%"></div>
+        <div class="pdf-mock__line" style="width:60%"></div>
+        <div class="pdf-mock__line" style="width:80%"></div>
+        <div class="pdf-mock__sep"></div>
+        <div class="pdf-mock__total">Razem: 8 600,00 zł netto</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════
+     SLIDE 3 — PORTAL KLIENTA
+     ════════════════════════════════════════════════ -->
+<section class="slide slide--portal">
+  <div class="slide__inner">
+    <p class="kicker anim">Chat</p>
+    <h2 class="anim">Klient akceptuje<br>online, bez maili</h2>
+    <p class="subtitle anim">Wysyłasz link — klient widzi wycenę, pisze wiadomość, zatwierdza. Koniec z&nbsp;drukowaniem i&nbsp;gonieniem za podpisem.</p>
+  </div>
+  <div class="slide__mockup anim">
+    <div class="portal-mock">
+      <!-- Nagłówek portalu -->
+      <div class="portal-mock__header">
+        <span class="portal-mock__logo">LoftDesk</span>
+        <span class="portal-mock__badge">Portal klienta</span>
+      </div>
+      <!-- Podgląd kosztorysu -->
+      <div class="portal-mock__estimate">
+        <div class="portal-mock__est-title">Kosztorys KS-2024/0047</div>
+        <div class="portal-mock__est-row"><span>Glazura łazienka 12m²</span><b>3 600 zł</b></div>
+        <div class="portal-mock__est-row"><span>Hydraulika</span><b>2 800 zł</b></div>
+        <div class="portal-mock__est-row"><span>Kabina walk-in</span><b>2 100 zł</b></div>
+        <div class="portal-mock__est-total"><span>Razem netto</span><b>8 500 zł</b></div>
+      </div>
+      <!-- Chat -->
+      <div class="portal-mock__chat">
+        <div class="chat-msg chat-msg--out">
+          <div class="chat-msg__bubble">Przesyłam kosztorys do akceptacji.</div>
+        </div>
+        <div class="chat-msg chat-msg--in">
+          <div class="chat-msg__bubble">OK, akceptuję wycenę 👍</div>
+        </div>
+      </div>
+      <!-- Status -->
+      <div class="portal-mock__actions">
+        <div class="portal-mock__status">✓ Zaakceptowany</div>
+        <div class="portal-mock__dl">📄 Pobierz PDF</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════
+     SLIDE 4 — AI
+     ════════════════════════════════════════════════ -->
+<section class="slide slide--ai" id="funkcje">
+  <div class="slide__inner">
+    <p class="kicker anim">Sztuczna inteligencja</p>
+    <h2 class="anim">Podyktuj zakres.<br>AI wyceni za Ciebie.</h2>
+    <p class="subtitle anim">Mów co robisz — LoftDesk AI porządkuje pozycje, dobiera stawki i&nbsp;generuje gotowy kosztorys.</p>
+  </div>
+  <div class="slide__mockup anim">
+    <div class="ai-mock">
+      <div class="ai-mock__input">
+        <div class="ai-mock__mic">🎤</div>
+        <div class="ai-mock__text">"Łazienka 8m², glazura, hydraulika, kabina walk-in"</div>
+      </div>
+      <div class="ai-mock__arrow">↓</div>
+      <div class="ai-mock__output">
+        <div class="ai-mock__row">Glazura ściana 8m² <b>2 400 zł</b></div>
+        <div class="ai-mock__row">Glazura podłoga 8m² <b>1 800 zł</b></div>
+        <div class="ai-mock__row">Hydraulika (wymiana) <b>3 200 zł</b></div>
+        <div class="ai-mock__row">Kabina walk-in <b>2 100 zł</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════
+     SLIDE 6 — CENNIK
+     ════════════════════════════════════════════════ -->
+<section class="slide slide--pricing" id="cennik">
+  <div class="slide__inner">
+    <p class="kicker anim">Cennik</p>
+    <h2 class="anim">Proste ceny.<br>Bez haczyków.</h2>
+  </div>
+  <div class="pricing-grid anim">
+    <div class="plan">
+      <div class="plan__name">Free</div>
+      <div class="plan__price">0 zł</div>
+      <div class="plan__desc">Na start</div>
+      <ul>
+        <li>5 faktur / mies.</li>
+        <li>3 umowy / mies.</li>
+        <li>PDF z logo</li>
+      </ul>
+      <a href="/login" class="pill pill--outline">Zacznij za darmo</a>
+    </div>
+    <div class="plan plan--featured">
+      <div class="plan__badge">Najpopularniejszy</div>
+      <div class="plan__name">Pro</div>
+      <div class="plan__price">29 zł<small>/mies.</small></div>
+      <div class="plan__desc">Bez limitów</div>
+      <ul>
+        <li>Bez limitów dokumentów</li>
+        <li>Portal klienta</li>
+        <li>Cloud + backup</li>
+        <li>Priorytetowe wsparcie</li>
+      </ul>
+      <a href="/login" class="pill">14 dni za darmo</a>
+    </div>
+    <div class="plan">
+      <div class="plan__name">Business</div>
+      <div class="plan__price">99 zł<small>/mies.</small></div>
+      <div class="plan__desc">Dla zespołów</div>
+      <ul>
+        <li>Wszystko z Pro</li>
+        <li>API + integracje</li>
+        <li>SLA 99.9%</li>
+        <li>Wdrożenie 1-on-1</li>
+      </ul>
+      <a href="mailto:kontakt@loftdesk.pl" class="pill pill--outline">Kontakt</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════
+     SLIDE 7 — CTA
+     ════════════════════════════════════════════════ -->
+<section class="slide slide--cta">
+  <div class="slide__inner">
+    <h2 class="anim">Zaoszczędź 10 godzin<br>tygodniowo.</h2>
+    <p class="subtitle anim">Dołącz do fachowców, którzy wystawiają dokumenty w&nbsp;30&nbsp;sekund.</p>
+    <a href="/login" class="pill pill--light anim">Zacznij za darmo</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="foot">
+  <div class="foot__inner">
+    <div class="foot__top">
+      <a href="/" class="foot__logo">LoftDesk</a>
+      <div class="foot__links">
+        <a href="#jak-dziala">Jak działa</a>
+        <a href="#funkcje">Funkcje</a>
+        <a href="#cennik">Cennik</a>
+        <a href="mailto:support@loftdesk.pl">Kontakt</a>
+      </div>
+    </div>
+    <p class="foot__copy">© 2026 LoftDesk. Wszelkie prawa zastrzeżone.</p>
+  </div>
+</footer>
+
+<script src="/landing/script.js"></script>
+</body>
+</html>
